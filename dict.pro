@@ -17,3 +17,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp
+
+INCLUDEPATH += /home/jiyuhang/program/jyhsdk/cpp/include
+LIBS += -L/home/jiyuhang/program/jyhsdk/cpp/lib
+LIBS += -ljyh

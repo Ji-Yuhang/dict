@@ -8,15 +8,17 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QTextCodec>
-//#include <QLabel>
-//#include <QApplication>
-//#include <QTextEdit>
+
+#if QT_VERSION > 0x050000
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonValue>
 #include <QJsonParseError>
-//#include <QtWidgets/QLabel>
+#else
+#include <json.h>
+#endif
+
 #include <iostream>
 struct word_info
 {
@@ -40,15 +42,13 @@ word_info getWord(const QString& word)
     QByteArray data = reply->readAll();
     if (!data.isEmpty()) {
         QString text = QString::fromUtf8(data);
-        QTextCodec* codec = QTextCodec::codecForHtml(data,QTextCodec::codecForName("UTF-16"));
-        QString text2 = codec->toUnicode(data);
-//        qDebug() << text<<endl<< data<<endl;//<<data.toHex()<<endl<<text2;
+#if QT_VERSION > 0x050000
+
         QJsonParseError error;
         QJsonDocument jsonDocument = QJsonDocument::fromJson(data, &error);
         if (error.error == QJsonParseError::NoError)
         {
             QString doubleJson = jsonDocument.toJson();
-//            qDebug() << doubleJson<< endl;
             if (jsonDocument.isObject()) {
                 QJsonObject json = jsonDocument.object();
                 if (json.contains("data")) {
@@ -56,21 +56,23 @@ word_info getWord(const QString& word)
                     QJsonObject obj =  datavalue.toObject();
                     QJsonValue cnValue = obj.value("definition");
                     QString wordcn = cnValue.toString();
-//                    qDebug() << wordcn<< endl;
                     std::cout<< wordcn.toUtf8().data() << std::endl;
                 }
             }
         }
-//        QLabel* l = new QLabel;
-//        l->resize(400,400);
-//        l->showNormal();
-//        l->setText(data);
-//        QTextEdit* e = new QTextEdit;
-//        e->resize(400,400);
-        
-//        e->showNormal();
-//        e->setHtml(data);
-//        loop.exec();
+#else
+        bool s = false;
+        QtJson::JsonObject json = QtJson::parse(text, s).toMap();
+        if (s) {
+            if (json.contains("data")) {
+                QtJson::JsonObject dataObj = json["data"].toMap();
+                QString cnValue = dataObj["definition"].toString();
+                std::cout<< cnValue.toUtf8().data() << std::endl;
+            }
+        }
+
+#endif
+
         return info;
     } else
         return info;
