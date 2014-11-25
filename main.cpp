@@ -69,6 +69,8 @@ word_info getWord(const QString& word)
                 QString cnValue = dataObj["definition"].toString();
                 std::cout<< cnValue.toUtf8().data() << std::endl;
             }
+            QString myJson = QtJson::serializeStr(json);
+            std::cout<< myJson.toUtf8().data() << std::endl;
         }
 
 #endif

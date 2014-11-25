@@ -1,0 +1,32 @@
+{
+    "data" : 
+    {
+        "audio" : "http://media.shanbay.com/audio/us/respective.mp3",
+        "cn_definition" : {
+            "defn" : "adj. 各自的, 分别的",
+            "pos" : "" 
+        },
+        "conent_id" : 5117,
+        "content" : "respective",
+        "content_id" : 5117,
+        "content_type" : "vocabulary",
+        "definition" : " adj. 各自的,分别的",
+        "en_definition" : {
+            "defn" : "considered individually",
+            "pos" : "s" 
+        },
+        "en_definitions" : {
+            "s" : [
+                "considered individually"
+                ] 
+        },
+        "id" : 5117,
+        "object_id" : 5117,
+        "pron" : "ri'spektiv",
+        "pronunciation" : "ri'spektiv",
+        "uk_audio" : "http://media.shanbay.com/audio/uk/respective.mp3",
+        "us_audio" : "http://media.shanbay.com/audio/us/respective.mp3" 
+    },
+    "msg" : "SUCCESS",
+    "status_code" : 0 
+}
